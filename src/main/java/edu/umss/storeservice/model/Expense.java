@@ -6,23 +6,26 @@ package edu.umss.storeservice.model;
 
 import edu.umss.storeservice.dto.ExpenseDto;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.util.Set;
 
 @Entity
 public class Expense extends ModelBase<ExpenseDto> {
     @OneToMany
-    private ExpenseType expenseType;
+    private Set<ExpenseType> expenseType;
     private Long value;
     private String description;
 
     @ManyToOne
     private ItemInstance itemInstance;
 
-    public ExpenseType getExpenseType() {
+    public Set<ExpenseType> getExpenseType() {
         return expenseType;
     }
 
-    public void setExpenseType(ExpenseType expenseType) {
+    public void setExpenseType(Set<ExpenseType> expenseType) {
         this.expenseType = expenseType;
     }
 
