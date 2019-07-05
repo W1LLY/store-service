@@ -28,10 +28,15 @@ public class ItemController extends GenericController<Item, ItemDto> {
         return service;
     }
 
-    @PostMapping(value = "/{id}/image")
+
+    @RequestMapping(
+            value = "/{id}/image",
+            method = RequestMethod.POST,
+            consumes = "multipart/form-data"
+    )
     @Override
-    public ResponseEntity uploadImage(@RequestParam("file") MultipartFile[] uploadingFiles,
-            @PathVariable("id") Long id) throws IOException {
+    public ResponseEntity uploadImage(@RequestPart("file") MultipartFile[] uploadingFiles,
+                                      @PathVariable("id") Long id) throws IOException {
         return super.uploadImage(uploadingFiles, id);
     }
 
