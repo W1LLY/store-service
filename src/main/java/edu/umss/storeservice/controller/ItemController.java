@@ -8,11 +8,8 @@ import edu.umss.storeservice.dto.ItemDto;
 import edu.umss.storeservice.model.Item;
 import edu.umss.storeservice.service.GenericService;
 import edu.umss.storeservice.service.ItemService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/items")
@@ -26,18 +23,6 @@ public class ItemController extends GenericController<Item, ItemDto> {
     @Override
     protected GenericService getService() {
         return service;
-    }
-
-
-    @RequestMapping(
-            value = "/{id}/image",
-            method = RequestMethod.POST,
-            consumes = "multipart/form-data"
-    )
-    @Override
-    public ResponseEntity uploadImage(@RequestPart("file") MultipartFile[] uploadingFiles,
-                                      @PathVariable("id") Long id) throws IOException {
-        return super.uploadImage(uploadingFiles, id);
     }
 
 }

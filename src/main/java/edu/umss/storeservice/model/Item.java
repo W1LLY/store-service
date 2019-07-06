@@ -4,12 +4,13 @@
 
 package edu.umss.storeservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import edu.umss.storeservice.dto.ItemDto;
 
 import javax.persistence.Entity;
-import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,8 +29,9 @@ public class Item extends ModelBase<ItemDto> {
     private Set<FeatureInstance> featureInstances;
 
     //todo mover a otra entidad para soportar muchas imagenes
-    @Lob
-    private Byte[] image;
+    @OneToMany(mappedBy = "item")
+    @JsonIgnoreProperties("item")
+    private List<Image> images;
 
     @OneToOne(targetEntity = SubCategory.class)
     private SubCategory subCategory;
@@ -50,13 +52,6 @@ public class Item extends ModelBase<ItemDto> {
         this.code = code;
     }
 
-    public Byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(Byte[] image) {
-        this.image = image;
-    }
 
     public SubCategory getSubCategory() {
         return subCategory;
@@ -112,5 +107,13 @@ public class Item extends ModelBase<ItemDto> {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 }

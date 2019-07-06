@@ -167,12 +167,14 @@ public abstract class GenericController<E extends ModelBase, D extends DtoBase<E
         return isAsc ? Sort.by(filter).ascending() : Sort.by(filter).descending();
     }
 
-    public ResponseEntity uploadImage(@RequestParam("file") MultipartFile[] uploadingFiles,
-            @PathVariable("id") Long id) throws IOException {
-        for (MultipartFile uploadedFile : uploadingFiles) {
-            uploadedFile.getOriginalFilename();
-            getService().saveImage(id, uploadedFile.getInputStream());
-        }
+    public ResponseEntity uploadImage(@RequestParam("file") MultipartFile file,
+                                      @PathVariable("id") Long id) throws IOException {
+
+        file.getOriginalFilename();
+        logger.info("file inputStream:" + file.getInputStream());
+        getService().saveImage(id, file.getInputStream());
+
+
         return ResponseEntity.ok("Image uploaded successfully");
     }
 

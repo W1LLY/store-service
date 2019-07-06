@@ -13,7 +13,6 @@ public class ItemInstanceDto extends DtoBase<ItemInstance> {
     private String name;
     private String code;
     private String label;
-    private String image;
     private String category;
     private Long subCategoryId;
     private String price;
@@ -23,6 +22,7 @@ public class ItemInstanceDto extends DtoBase<ItemInstance> {
     private Boolean featured;
     private String identifier;
     private ItemDto itemDto;
+    private Object[] images = new Object[0];
 
     public String getName() {
         return name;
@@ -46,14 +46,6 @@ public class ItemInstanceDto extends DtoBase<ItemInstance> {
 
     public void setLabel(String label) {
         this.label = label;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public String getCategory() {
@@ -86,6 +78,14 @@ public class ItemInstanceDto extends DtoBase<ItemInstance> {
 
     public void setComments(Object[] comments) {
         this.comments = comments;
+    }
+
+    public Object[] getImages() {
+        return images;
+    }
+
+    public void setImages(Object[] images) {
+        this.images = images;
     }
 
     @Override
@@ -136,7 +136,6 @@ public class ItemInstanceDto extends DtoBase<ItemInstance> {
         mapper.map(itemInstance.getItem(), this);
         // copy item to itemdto
         setItemDto(new ItemDto().toDto(itemInstance.getItem(), mapper));
-        setImage(getItemDto().getImage());
         return this;
     }
 }
