@@ -2,35 +2,33 @@ package edu.umss.storeservice.model;
 
 import edu.umss.storeservice.dto.ImageDto;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Lob;
 
 /**
- * @author Juan Montaño
+ * @author Willy Kelvis Sanchez Rojas
  */
 @Entity
 public class Image extends ModelBase<ImageDto> {
 
-    @Basic(fetch = FetchType.EAGER)
+    private String name;
+
     @Lob
-    private Byte[] image;
+    private byte[] image;
 
-    @ManyToOne
-    private Item item;
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public Byte[] getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(Byte[] image) {
+    public void setImage(byte[] image) {
         this.image = image;
-    }
-
-    public Item getItem() {
-        return item;
-    }
-
-    public void setItem(Item item) {
-        this.item = item;
     }
 }

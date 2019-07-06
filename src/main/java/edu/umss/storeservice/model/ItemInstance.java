@@ -8,7 +8,9 @@ import edu.umss.storeservice.dto.ItemInstanceDto;
 import org.modelmapper.ModelMapper;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import java.util.List;
 
 @Entity
 public class ItemInstance extends ModelBase<ItemInstanceDto> {
@@ -23,7 +25,10 @@ public class ItemInstance extends ModelBase<ItemInstanceDto> {
     // todo estados AVAILABLE, SOLD, MAINTENANCE, ON_TRANSPORTATION
     // private ItemInstanceState itemInstanceState;
     // todo agregar totalCost
-    private Double totalCost;
+    private Long totalCost;
+
+    @OneToMany
+    private List<Expense> expenses;
 
     private Double utility;
 
@@ -59,15 +64,28 @@ public class ItemInstance extends ModelBase<ItemInstanceDto> {
         this.featured = featured;
     }
 
-    public Double getTotalCost() {
+    public Long getTotalCost() {
+        for (Expense expense : getExpenses()) {
+            totalCost = totalCost + expense.getValue();
+        }
+
         return totalCost;
     }
 
-    public void setTotalCost(Double totalCost) {
+    public List<Expense> getExpenses() {
+        return expenses;
+    }
+
+    public void setExpenses(List<Expense> expenses) {
+        this.expenses = expenses;
+    }
+
+    public void setTotalCost(Long totalCost) {
         this.totalCost = totalCost;
     }
 
     public Double getUtility() {
+        utility = price - totalCost;
         return utility;
     }
 

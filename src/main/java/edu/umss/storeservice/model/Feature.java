@@ -4,12 +4,10 @@
 
 package edu.umss.storeservice.model;
 
-import edu.umss.storeservice.dto.FeatureDto;
-
 import javax.persistence.Entity;
 
 @Entity
-public class Feature extends ModelBase<FeatureDto> {
+public class Feature extends ModelBase {
     private String name;
 
     public String getName() {
