@@ -4,6 +4,7 @@ import edu.umss.storeservice.dto.ImageDto;
 
 import javax.persistence.Entity;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
 /**
  * @author Willy Kelvis Sanchez Rojas
@@ -16,9 +17,8 @@ public class Image extends ModelBase<ImageDto> {
     @Lob
     private byte[] image;
 
-    public String getName() {
-        return name;
-    }
+    @ManyToOne
+    private Item item;
 
     public void setName(String name) {
         this.name = name;
@@ -30,5 +30,13 @@ public class Image extends ModelBase<ImageDto> {
 
     public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
     }
 }

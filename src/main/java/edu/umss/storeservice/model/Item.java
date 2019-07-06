@@ -4,6 +4,7 @@
 
 package edu.umss.storeservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import edu.umss.storeservice.dto.ItemDto;
 
 import javax.persistence.Entity;
@@ -28,8 +29,8 @@ public class Item extends ModelBase<ItemDto> {
     private Set<FeatureInstance> featureInstances;
 
     //todo mover a otra entidad para soportar muchas imagenes
-    //@Lob
-    @OneToMany
+    @OneToMany(mappedBy = "item")
+    @JsonIgnoreProperties("item")
     private List<Image> image;
 
     @OneToOne(targetEntity = SubCategory.class)

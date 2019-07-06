@@ -175,23 +175,23 @@ public abstract class GenericController<E extends ModelBase, D extends DtoBase<E
     public ResponseEntity uploadImage(@RequestParam("uploadingFiles") MultipartFile uploadedFile,
                                       @PathVariable("id") Long id) throws IOException {
         Item item = (Item) getService().findById(id);
-        List<Image> images = item.getImage();
+        //List<Image> images = item.getImage();
         Image image = new Image();
         image.setName(uploadedFile.getOriginalFilename());
         image.setImage(uploadedFile.getBytes());
+        image.setItem(item);
         imageService.save(image);
-        images.add(image);
-        item.setImage(images);
-        getService().save(item);
+        //images.add(image);
+        //item.setImage(images);
+        //getService().save(item);
 
         Item i = (Item) getService().findById(id);
-        System.out.println(">>>>>>>>>" + i.getImage().size());
+        System.out.println(">>>>>>>>>Size " + i.getImage().size());
         //Item item = ((Item)getDomainClass().cast(Item.class));
         //item.setImage(images);
         //getService().save(item);
         return ResponseEntity.ok("Image uploaded successfully");
     }
-
 
     @RequestMapping(method = RequestMethod.OPTIONS)
     public ResponseEntity preflight(HttpServletResponse response) {

@@ -12,7 +12,7 @@ public class ItemDto extends DtoBase<Item> {
     private String name;
     private String code;
     private String label;
-    private Long[] image;
+
     private String category;
     private Long subCategoryId;
     private String price;
@@ -20,6 +20,7 @@ public class ItemDto extends DtoBase<Item> {
     private Long id;
     private String description;
     private Boolean featured;
+    private Object[] image;
 
     public String getName() {
         return name;
@@ -29,11 +30,11 @@ public class ItemDto extends DtoBase<Item> {
         this.name = name;
     }
 
-    public Long[] getImage() {
+    public Object[] getImage() {
         return image;
     }
 
-    public void setImage(Long[] image) {
+    public void setImage(Object[] image) {
         this.image = image;
     }
 

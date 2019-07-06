@@ -136,7 +136,7 @@ public class ItemInstanceDto extends DtoBase<ItemInstance> {
         mapper.map(itemInstance.getItem(), this);
         // copy item to itemdto
         setItemDto(new ItemDto().toDto(itemInstance.getItem(), mapper));
-        setImage(getItemDto().getImage());
+        //setImage(getItemDto().getImage());
         return this;
     }
 }

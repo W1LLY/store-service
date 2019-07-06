@@ -43,5 +43,4 @@ public class ItemController extends GenericController<Item, ItemDto> {
         System.out.println("****** " + uploadedFile + " " + id);
         return super.uploadImage(uploadedFile, id);
     }
-
 }
