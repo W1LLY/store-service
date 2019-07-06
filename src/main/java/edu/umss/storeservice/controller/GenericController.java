@@ -7,8 +7,11 @@ package edu.umss.storeservice.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.umss.storeservice.dto.DtoBase;
 import edu.umss.storeservice.exception.InternalErrorException;
+import edu.umss.storeservice.model.Image;
+import edu.umss.storeservice.model.Item;
 import edu.umss.storeservice.model.ModelBase;
 import edu.umss.storeservice.service.GenericService;
+import edu.umss.storeservice.service.ImageService;
 import io.micrometer.core.instrument.util.IOUtils;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -46,6 +49,8 @@ public abstract class GenericController<E extends ModelBase, D extends DtoBase<E
     protected ModelMapper modelMapper;
     @Autowired
     protected ObjectMapper objectMapper;
+    @Autowired
+    private ImageService imageService;
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -167,14 +172,23 @@ public abstract class GenericController<E extends ModelBase, D extends DtoBase<E
         return isAsc ? Sort.by(filter).ascending() : Sort.by(filter).descending();
     }
 
-    public ResponseEntity uploadImage(@RequestParam("file") MultipartFile file,
+    public ResponseEntity uploadImage(@RequestParam("uploadingFiles") MultipartFile uploadedFile,
                                       @PathVariable("id") Long id) throws IOException {
+        Item item = (Item) getService().findById(id);
+        List<Image> images = item.getImage();
+        Image image = new Image();
+        image.setName(uploadedFile.getOriginalFilename());
+        image.setImage(uploadedFile.getBytes());
+        imageService.save(image);
+        images.add(image);
+        item.setImage(images);
+        getService().save(item);
 
-        file.getOriginalFilename();
-        logger.info("file inputStream:" + file.getInputStream());
-        getService().saveImage(id, file.getInputStream());
-
-
+        Item i = (Item) getService().findById(id);
+        System.out.println(">>>>>>>>>" + i.getImage().size());
+        //Item item = ((Item)getDomainClass().cast(Item.class));
+        //item.setImage(images);
+        //getService().save(item);
         return ResponseEntity.ok("Image uploaded successfully");
     }
 

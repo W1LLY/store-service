@@ -3,18 +3,13 @@ package edu.umss.storeservice.service;
 import edu.umss.storeservice.model.Image;
 import edu.umss.storeservice.repository.GenericRepository;
 import edu.umss.storeservice.repository.ImageRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * @author Juan Montaño
+ * @author Willy Kelvis Sanchez Rojas
  */
 @Service
 public class ImageServiceImpl extends GenericServiceImpl<Image> implements ImageService {
-
-    @Autowired
-    ItemService itemService;
-
     private final ImageRepository repository;
 
     public ImageServiceImpl(ImageRepository repository) {
@@ -24,10 +19,5 @@ public class ImageServiceImpl extends GenericServiceImpl<Image> implements Image
     @Override
     protected GenericRepository<Image> getRepository() {
         return repository;
-    }
-
-    @Override
-    public void setImage(Image itemPersisted, Byte[] bytes) {
-        itemPersisted.setImage(bytes);
     }
 }

@@ -4,7 +4,6 @@
 
 package edu.umss.storeservice.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import edu.umss.storeservice.dto.ItemDto;
 
 import javax.persistence.Entity;
@@ -25,14 +24,13 @@ public class Item extends ModelBase<ItemDto> {
     private String description;
     // todo crear una entidad inventory con item y quantity
 
-    @OneToMany(mappedBy = "id")
-    @JsonIgnoreProperties("id")
+    @OneToMany
     private Set<FeatureInstance> featureInstances;
 
     //todo mover a otra entidad para soportar muchas imagenes
-    @OneToMany(mappedBy = "item")
-    @JsonIgnoreProperties("item")
-    private List<Image> images;
+    //@Lob
+    @OneToMany
+    private List<Image> image;
 
     @OneToOne(targetEntity = SubCategory.class)
     private SubCategory subCategory;
@@ -53,6 +51,13 @@ public class Item extends ModelBase<ItemDto> {
         this.code = code;
     }
 
+    public List<Image> getImage() {
+        return image;
+    }
+
+    public void setImage(List<Image> image) {
+        this.image = image;
+    }
 
     public SubCategory getSubCategory() {
         return subCategory;
@@ -108,13 +113,5 @@ public class Item extends ModelBase<ItemDto> {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public List<Image> getImages() {
-        return images;
-    }
-
-    public void setImages(List<Image> images) {
-        this.images = images;
     }
 }
