@@ -19,6 +19,7 @@ public class ItemDto extends DtoBase<Item> {
     private String description;
     private Boolean featured;
     private Object[] images;
+    private Object[] featureInstances;
 
     public String getName() {
         return name;
@@ -106,6 +107,14 @@ public class ItemDto extends DtoBase<Item> {
 
     public void setImages(Object[] images) {
         this.images = images;
+    }
+
+    public Object[] getFeatureInstances() {
+        return featureInstances;
+    }
+
+    public void setFeatureInstances(Object[] featureInstances) {
+        this.featureInstances = featureInstances;
     }
 
     @Override

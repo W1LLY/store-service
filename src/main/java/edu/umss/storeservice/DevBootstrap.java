@@ -11,6 +11,8 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> {
@@ -25,6 +27,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     private PositionService positionService;
     private SaleService saleService;
     private SubCategoryService subCategoryService;
+    private Set<FeatureInstance> featureInstances = new HashSet<>();
 
     public DevBootstrap(CategoryService categoryService, ContractService contractService,
             EmployeeService employeeService, ExpenseService expenseService,
@@ -76,6 +79,19 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         tallerCategory.setName("TALLER");
         categoryService.save(tallerCategory);
 
+        //feature
+        Feature feature1 = new Feature();
+        feature1.setName("feature1");
+        feature1 = featureService.save(feature1);
+
+        Feature feature2 = new Feature();
+        feature2.setName("feature2");
+        feature2 = featureService.save(feature2);
+
+        Feature feature3 = new Feature();
+        feature3.setName("feature3");
+        feature3 = featureService.save(feature3);
+
 
         // montacarga subcategory
         SubCategory montacargaSubCategory = new SubCategory();
@@ -107,6 +123,30 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                 "Hechos pensados en la industria donde la exigencia del equipo es frecuente. Komatsu BOBLE, ALTURA " +
                         "ELEVANTE 3,0 MTS");
         saveItemInstance(montacargaMitsubishi2T, false);
+
+        //Feature instance
+
+        FeatureInstance featureInstance1 = new FeatureInstance();
+        featureInstance1.setFeature(feature1);
+        featureInstance1.setValue("valor1");
+        //featureInstance1.setItem(tractorKubota10);
+        featureInstance1 = featureInstanceService.save(featureInstance1);
+        featureInstances.add(featureInstance1);
+
+        FeatureInstance featureInstance2 = new FeatureInstance();
+        featureInstance2.setFeature(feature2);
+        //featureInstance2.setItem(tractorKubota20);
+        featureInstance2.setValue("valor2");
+        featureInstance2 = featureInstanceService.save(featureInstance2);
+        featureInstances.add(featureInstance2);
+
+        FeatureInstance featureInstance3 = new FeatureInstance();
+        featureInstance3.setFeature(feature3);
+        featureInstance3.setValue("valor3");
+        //featureInstance3.setItem(motocultor);
+        featureInstance3 = featureInstanceService.save(featureInstance3);
+        featureInstances.add(featureInstance3);
+
 
         // Employee Employee
         Employee john = new Employee();
@@ -144,6 +184,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         item.setName(name);
         item.setDescription(description);
         item.setSubCategory(tractorSubCategory);
+        item.setFeatureInstances(featureInstances);
         return itemService.save(item);
     }
 

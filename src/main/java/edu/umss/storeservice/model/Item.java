@@ -25,7 +25,8 @@ public class Item extends ModelBase<ItemDto> {
     private String description;
     // todo crear una entidad inventory con item y quantity
 
-    @OneToMany
+    @OneToMany(mappedBy = "id")
+    @JsonIgnoreProperties("id")
     private Set<FeatureInstance> featureInstances;
 
     //todo mover a otra entidad para soportar muchas imagenes

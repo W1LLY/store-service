@@ -28,4 +28,5 @@ public class FeatureInstance extends ModelBase {
     public void setFeature(Feature feature) {
         this.feature = feature;
     }
+
 }
