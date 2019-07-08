@@ -3,7 +3,6 @@
  */
 package edu.umss.storeservice.dto;
 
-import edu.umss.storeservice.model.Image;
 import edu.umss.storeservice.model.Item;
 import org.modelmapper.ModelMapper;
 
@@ -20,7 +19,7 @@ public class ItemDto extends DtoBase<Item> {
     private Long id;
     private String description;
     private Boolean featured;
-    private Object[] image;
+    private String image;
 
     public String getName() {
         return name;
@@ -30,11 +29,11 @@ public class ItemDto extends DtoBase<Item> {
         this.name = name;
     }
 
-    public Object[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Object[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
@@ -115,18 +114,14 @@ public class ItemDto extends DtoBase<Item> {
         super.toDto(item, mapper);
         setCategory(item.getSubCategory().getCategory().getName());
         setLabel(item.getName());
-        if (item.getImage() != null || item.getImage().size() > 0) {
-            for (Image image : item.getImage()) {
-                Long[] images = new Long[item.getImage().size()];
-                //byte[] bytes = new byte[image.getImage().length];
-                for (int i = 0; i < images.length; i++) {
-                    images[i] = image.getId();
-                    //bytes[i] = image.getImage()[i];
-                }
-                setImage(images);
-                //String imageStr = Base64.encodeBase64String(bytes);
-                //setImage(imageStr);
-            }
+        System.out.println("------------------------------------------------------->");
+        if (item.getImage() != null) {
+            // byte[] bytes = new byte[item.getImage().length];
+            //for (int i = 0; i < item.getImage().length; i++) {
+            //bytes[i] = item.getImage()[i];
+            //}
+            //String imageStr = Base64.encodeBase64String(bytes);
+            setImage(item.getImage());
         }
         setPrice("5");
         return this;

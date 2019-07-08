@@ -13,7 +13,7 @@ public class ItemInstanceDto extends DtoBase<ItemInstance> {
     private String name;
     private String code;
     private String label;
-    private Long[] image;
+    private String image;
     private String category;
     private Long subCategoryId;
     private String price;
@@ -48,11 +48,11 @@ public class ItemInstanceDto extends DtoBase<ItemInstance> {
         this.label = label;
     }
 
-    public Long[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Long[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

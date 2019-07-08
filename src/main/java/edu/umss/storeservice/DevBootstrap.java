@@ -6,7 +6,6 @@ package edu.umss.storeservice;
 
 import edu.umss.storeservice.model.*;
 import edu.umss.storeservice.service.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -26,8 +25,6 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     private PositionService positionService;
     private SaleService saleService;
     private SubCategoryService subCategoryService;
-    @Autowired
-    private ImageService service;
 
     public DevBootstrap(CategoryService categoryService, ContractService contractService,
             EmployeeService employeeService, ExpenseService expenseService,
@@ -133,9 +130,9 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         employeeService.save(john);
         //contractService.save(contract);
 
-        Image image = new Image();
+        /**Image image = new Image();
         image.setName("algo");
-        service.save(image);
+         service.save(image);*/
 
     }
 
@@ -143,6 +140,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         ItemInstance itemInstance = new ItemInstance();
         itemInstance.setFeatured(featured);
         itemInstance.setItem(tractorKubota10);
+        itemInstance.setPrice(19000.5);
         itemInstanceService.save(itemInstance);
     }
 
